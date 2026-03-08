@@ -263,13 +263,13 @@
       </div>
 
       <h1 class="hero-h1">
-        <span class="line-white">Your robot footage.</span>
-        <span class="line-pink">10,000 scenarios.</span>
-        <span class="line-blue">No human labelers.</span>
+        <span class="line-white">A few demo videos.</span>
+        <span class="line-pink">10,000 training scenarios.</span>
+        <span class="line-blue">We multiply the rest.</span>
       </h1>
 
       <p class="hero-sub">
-        We calibrate physics to your specific robot from your actual footage — not generic simulation defaults — and deliver training-ready scenarios overnight.
+        Two demo videos in, thousands of training trajectories out. Our world model learns from your footage and generates the rest — no simulator setup, no URDF files, VLA-ready overnight.
       </p>
 
       <div class="signup-form" id="hero-form">
@@ -308,7 +308,7 @@
 
         <div class="pipeline-filename">
           <span class="file-icon">▶</span>
-          manipulation_arm_session_04.mp4 &nbsp;·&nbsp; 47 min
+          demo_01.mp4 &nbsp;·&nbsp; 3 min &nbsp;+&nbsp; demo_02.mp4 &nbsp;·&nbsp; 4 min
         </div>
 
         <div class="pipeline-steps" id="pipeline-steps">
@@ -316,35 +316,35 @@
             <div class="step-icon">01</div>
             <div class="step-info">
               <div class="step-name">Upload</div>
-              <div class="step-detail">Ingesting footage...</div>
+              <div class="step-detail">Ingesting 2 demo videos...</div>
             </div>
           </div>
           <div class="pipeline-step" data-step="1">
             <div class="step-icon">02</div>
             <div class="step-info">
-              <div class="step-name">Reconstruct</div>
-              <div class="step-detail">Geometry + dynamics extraction</div>
+              <div class="step-name">3DGS Reconstruct</div>
+              <div class="step-detail">Geometry + joint trajectory extraction</div>
             </div>
           </div>
           <div class="pipeline-step" data-step="2">
             <div class="step-icon">03</div>
             <div class="step-info">
-              <div class="step-name">Calibrate</div>
-              <div class="step-detail">Fitting physics to your robot</div>
+              <div class="step-name">World Model</div>
+              <div class="step-detail">Generating novel scenarios...</div>
             </div>
           </div>
           <div class="pipeline-step" data-step="3">
             <div class="step-icon">04</div>
             <div class="step-info">
-              <div class="step-name">Receive</div>
-              <div class="step-detail">Generating training scenarios</div>
+              <div class="step-name">Augment &amp; Deliver</div>
+              <div class="step-detail">Domain randomization + trajectory aug</div>
             </div>
           </div>
         </div>
 
         <div class="pipeline-output" id="pipeline-output">
           <div class="pipeline-output-label">OUTPUT</div>
-          ✓ &nbsp;10,847 scenarios ready &nbsp;·&nbsp; 7h 23m
+          ✓ &nbsp;10,847 trajectories &nbsp;·&nbsp; LeRobot format &nbsp;·&nbsp; 7h 23m
         </div>
       </div>
     </div>
@@ -365,8 +365,8 @@
       <div class="metric-label">Engineer time<br>saved on data prep</div>
     </div>
     <div class="metric-item reveal reveal-delay-3">
-      <div class="metric-value">$0</div>
-      <div class="metric-label">Human annotation<br>cost</div>
+      <div class="metric-value">2</div>
+      <div class="metric-label">Demo videos is all<br>you need to start</div>
     </div>
   </div>
 
@@ -374,23 +374,23 @@
   <section id="problem">
     <p class="section-eyebrow reveal">The problem</p>
     <h2 class="section-title reveal">
-      Annotation is the bottleneck.<br>Every robotics team knows it.
+      A few demos isn't enough to train on.<br>But it's enough to start.
     </h2>
     <div class="problem-grid">
       <div class="problem-card reveal">
-        <p class="problem-card-number">01 &nbsp;—&nbsp; SPEED</p>
-        <h3 class="problem-card-title">Labeling one hour of video takes weeks</h3>
-        <p class="problem-card-body">200–800 human hours to annotate a single hour of manipulation footage. By the time data comes back, your task requirements have changed.</p>
+        <p class="problem-card-number">01 &nbsp;—&nbsp; VOLUME</p>
+        <h3 class="problem-card-title">Real-world demos are expensive to collect at scale</h3>
+        <p class="problem-card-body">Recording enough teleoperation demos to train on is slow, ties up hardware, and still won't cover the variation your policy needs to generalize.</p>
       </div>
       <div class="problem-card reveal reveal-delay-1">
         <p class="problem-card-number">02 &nbsp;—&nbsp; COVERAGE</p>
         <h3 class="problem-card-title">Edge cases stay invisible until deployment</h3>
-        <p class="problem-card-body">60%+ of robotic perception failures trace back to training data errors. You can't collect rare failure modes in the real world at sufficient volume — or safely.</p>
+        <p class="problem-card-body">The edge cases that break your robot in production are exactly the ones you can't safely collect in the real world.</p>
       </div>
       <div class="problem-card reveal reveal-delay-2">
         <p class="problem-card-number">03 &nbsp;—&nbsp; TRANSFER</p>
-        <h3 class="problem-card-title">Generic sim data doesn't transfer to hardware</h3>
-        <p class="problem-card-body">Sim-to-real gaps caused by generic physics assumptions make existing synthetic tools unreliable. You need physics calibrated to your robot, not defaults.</p>
+        <h3 class="problem-card-title">Building a simulator for your robot is a project in itself</h3>
+        <p class="problem-card-body">Getting a simulator that actually matches your hardware takes weeks of engineering — and the sim-to-real gap often kills performance anyway.</p>
       </div>
     </div>
   </section>
@@ -398,7 +398,7 @@
   <!-- ─── HOW IT WORKS ─── -->
   <section id="how-it-works" style="background: rgba(250,230,175,0.18);">
     <p class="section-eyebrow reveal">How it works</p>
-    <h2 class="section-title reveal">From footage to 10,000 scenarios in four steps.</h2>
+    <h2 class="section-title reveal">Four steps. Overnight.</h2>
 
     <div class="how-grid">
       <div class="steps-list reveal">
@@ -406,28 +406,28 @@
           <span class="step-num">01</span>
           <div class="step-content">
             <div class="step-title">Upload</div>
-            <div class="step-desc">Drop in your existing robot footage. Any camera setup. Any manipulation task. No special recording requirements.</div>
+            <div class="step-desc">Drop in two or three videos of your robot doing the task. Any camera, any setup.</div>
           </div>
         </div>
         <div class="step-item">
           <span class="step-num">02</span>
           <div class="step-content">
             <div class="step-title">Reconstruct</div>
-            <div class="step-desc">We extract geometry, joint trajectories, object interactions, and environment structure from your video — automatically.</div>
+            <div class="step-desc">We build a precise 3D model of your scene — robot, objects, environment — straight from your footage.</div>
           </div>
         </div>
         <div class="step-item">
           <span class="step-num">03</span>
           <div class="step-content">
-            <div class="step-title">Calibrate</div>
-            <div class="step-desc">Physics parameters — inertia, friction, joint limits, actuator profiles — are fitted to your specific robot in your specific environment. Not defaults.</div>
+            <div class="step-title">Generate</div>
+            <div class="step-desc">Our world model synthesizes thousands of new scenarios from your scene — new positions, angles, and edge cases your demos never covered. No simulator to configure.</div>
           </div>
         </div>
         <div class="step-item">
           <span class="step-num">04</span>
           <div class="step-content">
             <div class="step-title">Receive</div>
-            <div class="step-desc">10,000+ labelled training scenarios arrive overnight, ready to drop into your training pipeline. Edge cases included.</div>
+            <div class="step-desc">Thousands of training trajectories, overnight, in the format your pipeline already reads.</div>
           </div>
         </div>
       </div>
@@ -436,31 +436,35 @@
       <div class="json-panel reveal reveal-delay-1">
         <div class="json-panel-header">
           <span class="json-panel-title">Output schema &nbsp;·&nbsp; trajectory.json</span>
-          <span class="json-panel-badge">✓ physics valid</span>
+          <span class="json-panel-badge">✓ LeRobot v3 format</span>
         </div>
         <div class="json-body">
 <pre><span class="j-p">{</span>
-  <span class="j-k">"scenario_id"</span><span class="j-p">:</span> <span class="j-s">"scn_0847_pick_offset"</span><span class="j-p">,</span>
+  <span class="j-k">"episode_id"</span><span class="j-p">:</span> <span class="j-s">"ep_0847_pick_offset"</span><span class="j-p">,</span>
   <span class="j-k">"task"</span><span class="j-p">:</span> <span class="j-s">"pick_and_place"</span><span class="j-p">,</span>
+  <span class="j-k">"format"</span><span class="j-p">:</span> <span class="j-s">"lerobot_v3"</span><span class="j-p">,</span>
   <span class="j-k">"robot"</span><span class="j-p">: {</span>
     <span class="j-k">"model"</span><span class="j-p">:</span> <span class="j-s">"ur5e_custom"</span><span class="j-p">,</span>
     <span class="j-k">"dof"</span><span class="j-p">:</span> <span class="j-n">6</span><span class="j-p">,</span>
-    <span class="j-k">"calibrated_from"</span><span class="j-p">:</span> <span class="j-s">"session_04.mp4"</span>
+    <span class="j-k">"calibrated_from"</span><span class="j-p">: [</span><span class="j-s">"demo_01.mp4"</span><span class="j-p">,</span> <span class="j-s">"demo_02.mp4"</span><span class="j-p">]</span>
   <span class="j-p">},</span>
-  <span class="j-k">"physics"</span><span class="j-p">: {</span>
+  <span class="j-k">"sys_id"</span><span class="j-p">: {</span>
     <span class="j-k">"friction_coeff"</span><span class="j-p">:</span> <span class="j-n">0.412</span><span class="j-p">,</span>
     <span class="j-k">"inertia_tensor"</span><span class="j-p">:</span> <span class="j-s">"[fitted]"</span><span class="j-p">,</span>
     <span class="j-k">"actuator_profile"</span><span class="j-p">:</span> <span class="j-s">"[calibrated]"</span>
   <span class="j-p">},</span>
-  <span class="j-k">"trajectory"</span><span class="j-p">: {</span>
-    <span class="j-k">"frames"</span><span class="j-p">:</span> <span class="j-n">1200</span><span class="j-p">,</span>
-    <span class="j-k">"dt_ms"</span><span class="j-p">:</span> <span class="j-n">16.67</span><span class="j-p">,</span>
-    <span class="j-k">"joint_positions"</span><span class="j-p">: [</span><span class="j-s">"..."</span><span class="j-p">],</span>
-    <span class="j-k">"ee_poses"</span><span class="j-p">: [</span><span class="j-s">"..."</span><span class="j-p">],</span>
-    <span class="j-k">"contact_events"</span><span class="j-p">: [</span><span class="j-s">"..."</span><span class="j-p">]</span>
+  <span class="j-k">"observation"</span><span class="j-p">: {</span>
+    <span class="j-k">"images"</span><span class="j-p">: {</span> <span class="j-k">"wrist_cam"</span><span class="j-p">:</span> <span class="j-s">"[...]"</span><span class="j-p">,</span> <span class="j-k">"top_cam"</span><span class="j-p">:</span> <span class="j-s">"[...]"</span> <span class="j-p">},</span>
+    <span class="j-k">"state"</span><span class="j-p">:</span> <span class="j-s">"joint_positions + ee_pose"</span>
   <span class="j-p">},</span>
-  <span class="j-k">"augmentations"</span><span class="j-p">:</span> <span class="j-n">10847</span><span class="j-p">,</span>
-  <span class="j-k">"physics_valid"</span><span class="j-p">:</span> <span class="j-b">true</span>
+  <span class="j-k">"action"</span><span class="j-p">: {</span>
+    <span class="j-k">"joint_velocities"</span><span class="j-p">: [</span><span class="j-s">"..."</span><span class="j-p">],</span>
+    <span class="j-k">"gripper"</span><span class="j-p">: [</span><span class="j-s">"..."</span><span class="j-p">],</span>
+    <span class="j-k">"chunk_size"</span><span class="j-p">:</span> <span class="j-n">16</span>
+  <span class="j-p">},</span>
+  <span class="j-k">"domain_randomizations"</span><span class="j-p">:</span> <span class="j-n">847</span><span class="j-p">,</span>
+  <span class="j-k">"physics_valid"</span><span class="j-p">:</span> <span class="j-b">true</span><span class="j-p">,</span>
+  <span class="j-k">"vla_compatible"</span><span class="j-p">:</span> <span class="j-b">true</span>
 <span class="j-p">}</span></pre>
         </div>
       </div>
@@ -470,20 +474,20 @@
   <!-- ─── OBJECTION FLIP ─── -->
   <section id="why-it-works">
     <p class="section-eyebrow reveal">Why it works</p>
-    <h2 class="section-title reveal">Let's address the obvious objection directly.</h2>
+    <h2 class="section-title reveal">Why generated data actually transfers.</h2>
 
     <div class="objection-card reveal">
       <div class="objection-side">
         <p class="objection-eyebrow concern">The concern</p>
-        <p class="objection-claim">"Synthetic data never matches real physics. We've tried it before."</p>
+        <p class="objection-claim">"AI-generated data won't match the physics of our real robot. We've been burned by sim-to-real gaps before."</p>
       </div>
       <div class="objection-side">
         <p class="objection-eyebrow answer">What we do differently</p>
         <ul class="objection-answers">
-          <li>We extract physics parameters directly from your footage — inertia, friction coefficients, joint limits, and actuator profiles — not from generic simulation defaults.</li>
-          <li>The physics model is calibrated to your specific robot in your specific environment. Not a generic robot. Not a textbook model.</li>
-          <li>Every generated scenario is validated against the calibrated model before it ships to you. Invalid physics gets discarded automatically.</li>
-          <li>The sim-to-real gap shrinks because the simulation starts from reality. Your footage is the ground truth, not an approximation of it.</li>
+          <li>Our world model learns physics from your footage — every scenario stays grounded in what your robot actually does.</li>
+          <li>3D Gaussian Splatting anchors generation to your real scene, not a generic environment.</li>
+          <li>The output is diverse variations of real motions — close to your demonstration distribution, not invented movements.</li>
+          <li>No simulator setup. No URDF files. Upload footage, receive trajectories.</li>
         </ul>
       </div>
     </div>
@@ -491,8 +495,8 @@
 
   <!-- ─── FINAL CTA ─── -->
   <section class="final-cta" id="apply">
-    <h2 class="section-title reveal">Ready to stop waiting on annotation?</h2>
-    <p class="final-cta-sub reveal">Join the free pilot. No contracts. No commitments. Just faster training data.</p>
+    <h2 class="section-title reveal">Have a few demos? Let's turn them into thousands.</h2>
+    <p class="final-cta-sub reveal">Drop in your teleoperation demos. Get thousands of VLA-ready trajectories overnight, with zero extra collection.</p>
 
     <div class="signup-form reveal" id="final-form">
       <form id="final-signup-form" onsubmit="handleSignup(event, 'final')">
@@ -578,10 +582,10 @@
     const outputPanel = document.getElementById('pipeline-output');
 
     const stepDetails = [
-      'Ingesting footage — 47 min session',
-      'Extracting geometry + joint data...',
-      'Fitting friction, inertia, actuators...',
-      'Generating 10,847 scenarios...'
+      'Ingesting 2 teleoperation demos...',
+      '3DGS reconstruction · extracting trajectories...',
+      'World model · synthesizing novel scenarios...',
+      'Domain rand + trajectory aug · 10,847 trajectories...'
     ];
     const stepDurations = [1800, 2200, 2400, 2000]; // ms per step
 
