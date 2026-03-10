@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap');
+
+/* ─── SurgiSim · Surgical Art Deco Luxury ─── */
+
+.ss-page {
+  --void: #07080a;
+  --deep: #0d0f12;
+  --surface: #111418;
+  --card: #141820;
+  --ice: #e4ecea;
+  --ice-dim: rgba(228,236,234,0.7);
+  --muted: #4a5c58;
+  --gold: #b8963c;
+  --gold-bright: #d4b060;
+  --gold-dim: rgba(184,150,60,0.15);
+  --gold-line: rgba(184,150,60,0.25);
+  --border: rgba(228,236,234,0.06);
+  --border-gold: rgba(184,150,60,0.2);
+
+  background: var(--void);
+  color: var(--ice);
+  font-family: 'Crimson Pro', serif;
+  line-height: 1.65;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+.ss-page *, .ss-page *::before, .ss-page *::after {
+  box-sizing: border-box; margin: 0; padding: 0;
+}
+
+.ss-page .container { max-width: 1040px; margin: 0 auto; padding: 0 40px; }
+
+/* ── NAV ── */
+.ss-page nav {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-gold);
+  position: sticky; top: 0;
+  background: rgba(7,8,10,0.96); backdrop-filter: blur(20px); z-index: 100;
+}
+.ss-page .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+.ss-page .logo {
+  font-family: 'Playfair Display', serif; font-size: 1.2rem;
+  font-weight: 700; color: var(--ice); letter-spacing: 0.04em;
+}
+.ss-page .logo em { font-style: italic; color: var(--gold); }
+.ss-page .nav-cta {
+  font-family: 'Crimson Pro', serif; font-size: 0.82rem; font-weight: 400;
+  letter-spacing: 0.12em; text-transform: uppercase; font-style: italic;
+  color: var(--gold); border: 1px solid var(--border-gold);
+  padding: 8px 22px; background: transparent; cursor: pointer; transition: all 0.25s;
+}
+.ss-page .nav-cta:hover { background: var(--gold); color: var(--void); }
+
+/* ── HERO — centered, symmetrical ── */
+.ss-page .hero { padding: 100px 0 80px; text-align: center; position: relative; }
+
+/* Decorative top rule */
+.ss-page .hero::before {
+  content: '';
+  position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+  width: 1px; height: 60px; background: linear-gradient(var(--gold), transparent);
+}
+
+.ss-page .hero-badge {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 0.78rem; color: var(--gold); letter-spacing: 0.1em;
+  margin-bottom: 40px;
+}
+.ss-page .hero-badge::before, .ss-page .hero-badge::after {
+  content: ''; display: inline-block;
+  width: 32px; height: 1px; background: var(--gold);
+  opacity: 0.5;
+}
+.ss-page .badge-dot { display: none; }
+
+.ss-page .hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 7vw, 6rem);
+  font-weight: 400; line-height: 1.05; letter-spacing: 0.01em;
+  color: var(--ice); max-width: 800px; margin: 0 auto 32px;
+  animation: ss-rise 1s cubic-bezier(0.16,1,0.3,1) both;
+}
+.ss-page .hero h1 em {
+  font-style: italic; color: var(--gold);
+  display: block; font-size: 0.85em;
+}
+
+.ss-page .hero-sub {
+  font-size: 1.05rem; font-weight: 300; color: var(--muted);
+  max-width: 520px; margin: 0 auto 48px;
+  line-height: 1.9; font-style: italic;
+  animation: ss-rise 1s 0.15s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+.ss-page .hero-form-wrap {
+  max-width: 480px; margin: 0 auto 56px;
+  animation: ss-rise 1s 0.25s cubic-bezier(0.16,1,0.3,1) both;
+}
+
+.ss-page .trusted-row {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 0.78rem; color: var(--muted); text-align: center;
+  animation: ss-rise 1s 0.35s cubic-bezier(0.16,1,0.3,1) both;
+}
+.ss-page .trusted-tags {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 12px;
+}
+.ss-page .trusted-tag {
+  font-family: 'Crimson Pro', serif; font-style: italic;
+  font-size: 0.78rem; color: var(--gold);
+  border: 1px solid var(--border-gold); padding: 4px 14px;
+  background: var(--gold-dim);
+}
+
+/* ── FORM ── */
+.ss-page .surgisim-form { display: flex; }
+.ss-page .ss-input {
+  flex: 1; background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border-gold); border-right: none;
+  color: var(--ice); font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem; padding: 14px 20px; outline: none;
+  transition: border-color 0.2s;
+}
+.ss-page .ss-input::placeholder { color: var(--muted); font-style: italic; }
+.ss-page .ss-input:focus { border-color: var(--gold); }
+.ss-page .ss-submit {
+  background: var(--gold); color: var(--void);
+  font-family: 'Playfair Display', serif; font-size: 0.82rem;
+  font-weight: 700; font-style: italic; letter-spacing: 0.06em;
+  border: none; padding: 14px 26px; cursor: pointer; transition: all 0.2s;
+}
+.ss-page .ss-submit:hover { background: var(--gold-bright); }
+.ss-page .form-micro {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 0.72rem; color: var(--muted); margin-top: 10px;
+  text-align: center;
+}
+.ss-page .ss-success {
+  background: var(--gold-dim); border: 1px solid var(--border-gold);
+  padding: 18px 24px; display: flex; align-items: center; gap: 14px;
+}
+.ss-page .ss-check { color: var(--gold); font-size: 1.2rem; }
+.ss-page .ss-success-text strong { display: block; font-weight: 600; font-size: 0.9rem; }
+.ss-page .ss-success-text span { font-size: 0.78rem; color: var(--muted); font-style: italic; }
+
+/* ── ORNAMENTAL DIVIDERS ── */
+.ss-page .divider {
+  border: none; margin: 0;
+  position: relative; height: 1px;
+}
+.ss-page .divider::before {
+  content: '';
+  position: absolute; left: 0; right: 0; top: 0;
+  height: 1px; background: var(--border-gold);
+}
+.ss-page .divider::after {
+  content: '◆';
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.5rem; color: var(--gold);
+  background: var(--void); padding: 0 10px;
+}
+
+/* ── SECTIONS ── */
+.ss-page .section { padding: 88px 0; }
+.ss-page .section-tag {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 0.78rem; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 20px;
+  text-align: center;
+  position: relative;
+}
+.ss-page .section-tag::before, .ss-page .section-tag::after {
+  content: '——'; margin: 0 10px; opacity: 0.4;
+}
+.ss-page .section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.9rem, 3.5vw, 3rem); font-weight: 400;
+  line-height: 1.2; margin-bottom: 20px; max-width: 640px;
+  color: var(--ice); text-align: center; margin-left: auto; margin-right: auto;
+}
+.ss-page .section-body {
+  font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.9;
+  max-width: 540px; font-style: italic;
+  text-align: center; margin: 0 auto;
+}
+
+/* ── PROBLEM CARDS ── */
+.ss-page .problem-cards {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 20px; margin-top: 56px;
+}
+.ss-page .prob-card {
+  background: var(--card);
+  border-top: 1px solid var(--gold-line);
+  padding: 32px; position: relative;
+  transition: border-color 0.25s;
+}
+.ss-page .prob-card:hover { border-top-color: var(--gold); }
+.ss-page .prob-card-tag {
+  font-family: 'Playfair Display', serif;
+  font-style: italic; font-size: 0.72rem; color: var(--gold);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px;
+}
+.ss-page .prob-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem; font-weight: 500; margin-bottom: 12px;
+  color: var(--ice); line-height: 1.3;
+}
+.ss-page .prob-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+
+.ss-page .callout {
+  background: var(--gold-dim); border: 1px solid var(--border-gold);
+  padding: 32px 40px; margin-top: 48px; text-align: center;
+}
+.ss-page .callout-body {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1.2rem; line-height: 1.7; color: var(--ice); margin-bottom: 14px;
+}
+.ss-page .callout-source { font-size: 0.78rem; color: var(--muted); font-style: italic; }
+
+/* ── FEATURES — thin-bordered, no dark fill ── */
+.ss-page .features-list {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 0; margin-top: 56px;
+  border: 1px solid var(--border-gold);
+}
+.ss-page .feat-item {
+  padding: 32px 24px;
+  border-right: 1px solid var(--border-gold);
+  border-bottom: 1px solid var(--border-gold);
+  transition: background 0.2s;
+}
+.ss-page .feat-item:nth-child(3n) { border-right: none; }
+.ss-page .feat-item:nth-last-child(-n+3) { border-bottom: none; }
+.ss-page .feat-item:hover { background: var(--gold-dim); }
+.ss-page .feat-item-tag {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 0.65rem; color: var(--gold); letter-spacing: 0.12em;
+  text-transform: uppercase; margin-bottom: 18px;
+}
+.ss-page .feat-icon { font-size: 1.3rem; margin-bottom: 10px; display: block; }
+.ss-page .feat-item h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.98rem; font-weight: 500; margin-bottom: 8px; color: var(--ice);
+}
+.ss-page .feat-item p { font-size: 0.84rem; color: var(--muted); line-height: 1.75; }
+
+/* ── STEPS ── */
+.ss-page .steps-list { margin-top: 56px; max-width: 720px; margin-left: auto; margin-right: auto; }
+.ss-page .step-entry {
+  display: grid; grid-template-columns: 90px 1fr;
+  gap: 28px; padding: 40px 0; border-bottom: 1px solid var(--border);
+  align-items: start;
+}
+.ss-page .step-entry:last-child { border-bottom: none; }
+.ss-page .step-id {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 0.85rem; color: var(--gold); opacity: 0.7;
+  text-align: right; padding-top: 4px;
+}
+.ss-page .step-entry h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem; font-weight: 500; margin-bottom: 8px; color: var(--ice);
+}
+.ss-page .step-entry p { font-size: 0.9rem; color: var(--muted); line-height: 1.8; }
+.ss-page .step-note {
+  font-size: 0.72rem; color: var(--gold); margin-top: 10px;
+  font-style: italic; font-family: 'Playfair Display', serif;
+}
+
+/* ── FAQ ── */
+.ss-page .faq-block { margin-top: 56px; max-width: 720px; margin-left: auto; margin-right: auto; }
+.ss-page .faq-row { border-bottom: 1px solid var(--border-gold); padding: 28px 0; }
+.ss-page .faq-question {
+  font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 500;
+  margin-bottom: 12px; display: flex; justify-content: space-between; gap: 16px; color: var(--ice);
+}
+.ss-page .faq-question::after { content: '+'; color: var(--gold); flex-shrink: 0; font-family: 'Crimson Pro', serif; }
+.ss-page .faq-answer { font-size: 0.9rem; color: var(--muted); line-height: 1.85; }
+
+/* ── CTA ── */
+.ss-page .cta-wrap {
+  margin: 80px 0; padding: 72px 64px; text-align: center;
+  border: 1px solid var(--border-gold); position: relative;
+  background: var(--surface);
+}
+/* Art Deco corner ornaments */
+.ss-page .cta-wrap::before {
+  content: '';
+  position: absolute; inset: 8px;
+  border: 1px solid var(--border-gold); pointer-events: none;
+}
+.ss-page .cta-wrap h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 400;
+  margin-bottom: 14px; color: var(--ice); font-style: italic;
+}
+.ss-page .cta-wrap p {
+  color: var(--muted); font-size: 0.95rem; font-style: italic;
+  max-width: 460px; margin: 0 auto 36px; line-height: 1.85;
+}
+.ss-page .cta-form { max-width: 480px; margin: 0 auto; }
+
+/* ── FOOTER ── */
+.ss-page footer {
+  padding: 32px 0; border-top: 1px solid var(--border-gold);
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 12px;
+}
+.ss-page .footer-name {
+  font-family: 'Playfair Display', serif; font-style: italic;
+  font-size: 1rem; color: var(--gold);
+}
+.ss-page .footer-text { font-size: 0.72rem; color: var(--muted); font-style: italic; }
+
+/* ── ANIMATIONS ── */
+@keyframes ss-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .ss-page .hero { text-align: left; }
+  .ss-page .hero-badge { justify-content: flex-start; }
+  .ss-page .hero h1 { margin-left: 0; }
+  .ss-page .section-tag { text-align: left; }
+  .ss-page .section-title, .ss-page .section-body { text-align: left; margin-left: 0; margin-right: 0; }
+  .ss-page .problem-cards, .ss-page .features-list { grid-template-columns: 1fr; }
+  .ss-page .feat-item { border-right: none !important; }
+  .ss-page .step-entry { grid-template-columns: 60px 1fr; }
+  .ss-page .cta-wrap { padding: 48px 28px; }
+  .ss-page .surgisim-form { flex-direction: column; }
+  .ss-page .ss-input { border-right: 1px solid var(--border-gold); }
+  .ss-page footer { flex-direction: column; }
+}

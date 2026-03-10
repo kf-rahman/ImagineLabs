@@ -1,0 +1,400 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@300;400;500;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+
+/* ─── DexForge · Engineering Blueprint Aesthetic ─── */
+
+.df-page {
+  --prussian: #0c1b33;
+  --surface: #0f2040;
+  --card: #0d1e38;
+  --blueprint-white: #d8e8f0;
+  --amber: #e8a020;
+  --amber-dim: rgba(232,160,32,0.15);
+  --amber-glow: rgba(232,160,32,0.06);
+  --muted: #6a8aaa;
+  --grid: rgba(216,232,240,0.05);
+  --border: rgba(216,232,240,0.12);
+  --border-amber: rgba(232,160,32,0.35);
+
+  background: var(--prussian);
+  color: var(--blueprint-white);
+  font-family: 'IBM Plex Mono', monospace;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+
+  /* Blueprint dot grid */
+  background-image:
+    radial-gradient(circle, rgba(216,232,240,0.08) 1px, transparent 1px),
+    radial-gradient(circle, rgba(216,232,240,0.04) 1px, transparent 1px);
+  background-size: 28px 28px, 7px 7px;
+  background-position: 0 0, 14px 14px;
+}
+
+.df-page *, .df-page *::before, .df-page *::after {
+  box-sizing: border-box; margin: 0; padding: 0;
+}
+
+.df-page .container {
+  max-width: 1100px; margin: 0 auto; padding: 0 32px;
+}
+
+/* ── NAV ── */
+.df-page nav {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-amber);
+  position: sticky; top: 0;
+  background: rgba(12,27,51,0.96);
+  backdrop-filter: blur(16px);
+  z-index: 100;
+}
+.df-page .nav-inner {
+  display: flex; align-items: center; justify-content: space-between;
+}
+.df-page .logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem; letter-spacing: 0.12em;
+  color: var(--amber);
+}
+.df-page .logo span { color: var(--blueprint-white); }
+.df-page .nav-pill {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--amber); border: 1px solid var(--border-amber);
+  padding: 7px 18px; background: var(--amber-dim);
+  cursor: pointer; transition: all 0.2s;
+}
+.df-page .nav-pill:hover {
+  background: var(--amber); color: var(--prussian);
+}
+
+/* ── HERO ── */
+.df-page .hero {
+  padding: 90px 0 72px;
+  position: relative; overflow: hidden;
+}
+
+/* Scan-line reveal animation */
+.df-page .hero::after {
+  content: '';
+  position: absolute; left: 0; right: 0; top: 0; height: 3px;
+  background: linear-gradient(90deg, transparent 0%, var(--amber) 40%, rgba(232,160,32,0.5) 60%, transparent 100%);
+  animation: df-scan 1.8s cubic-bezier(0.4, 0, 0.2, 1) 0.1s both;
+  pointer-events: none;
+}
+
+.df-page .hero-ref {
+  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 32px;
+  display: flex; align-items: center; gap: 12px;
+}
+.df-page .hero-ref::before {
+  content: '';
+  display: inline-block; width: 40px; height: 1px; background: var(--amber);
+}
+.df-page .hero-ref::after {
+  content: 'DXF — SPEC 001';
+  color: var(--muted); font-size: 0.6rem; margin-left: 8px;
+}
+
+.df-page .hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(4rem, 9vw, 8.5rem);
+  line-height: 0.9; letter-spacing: 0.04em;
+  color: var(--blueprint-white);
+  max-width: 900px; margin-bottom: 28px;
+  animation: df-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.2s both;
+}
+.df-page .hero h1 em {
+  font-style: normal; color: var(--amber);
+  display: block;
+}
+.df-page .hero-sub {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1rem; color: var(--muted); max-width: 540px;
+  line-height: 1.75; margin-bottom: 44px;
+  animation: df-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.35s both;
+}
+.df-page .hero-form-wrap {
+  max-width: 520px;
+  animation: df-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.45s both;
+}
+
+/* Engineering spec stats */
+.df-page .hero-stats {
+  margin-top: 60px; display: flex; gap: 0;
+  border: 1px solid var(--border-amber);
+  animation: df-rise 0.9s cubic-bezier(0.16,1,0.3,1) 0.55s both;
+  max-width: 560px;
+}
+.df-page .stat-item {
+  flex: 1; padding: 20px 24px;
+  border-right: 1px solid var(--border-amber);
+  position: relative;
+}
+.df-page .stat-item:last-child { border-right: none; }
+.df-page .stat-item::before {
+  content: attr(data-ref);
+  position: absolute; top: 6px; right: 8px;
+  font-size: 0.5rem; color: var(--amber); opacity: 0.5;
+  letter-spacing: 0.1em;
+}
+.df-page .stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.6rem; letter-spacing: 0.06em;
+  color: var(--amber); display: block; line-height: 1;
+}
+.df-page .stat-label {
+  font-size: 0.6rem; color: var(--muted); text-transform: uppercase;
+  letter-spacing: 0.15em; margin-top: 4px; display: block;
+}
+
+/* ── FORM ── */
+.df-page .form-row { display: flex; }
+.df-page .email-input {
+  flex: 1; background: rgba(13,30,56,0.8);
+  border: 1px solid var(--border-amber); border-right: none;
+  color: var(--blueprint-white); font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem; padding: 14px 18px; outline: none;
+  transition: border-color 0.2s;
+}
+.df-page .email-input::placeholder { color: #3a5a7a; }
+.df-page .email-input:focus { border-color: var(--amber); }
+.df-page .submit-btn {
+  font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem;
+  font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase;
+  background: var(--amber); color: var(--prussian);
+  border: 1px solid var(--amber); padding: 14px 24px;
+  cursor: pointer; transition: all 0.15s; white-space: nowrap;
+}
+.df-page .submit-btn:hover { background: #f5b230; }
+.df-page .form-note {
+  font-size: 0.65rem; color: var(--muted);
+  margin-top: 10px; letter-spacing: 0.06em;
+}
+
+.df-page .success-state {
+  background: var(--amber-dim); border: 1px solid var(--border-amber);
+  padding: 18px 22px; display: flex; align-items: center; gap: 14px;
+}
+.df-page .success-icon { color: var(--amber); font-size: 1.2rem; }
+.df-page .success-text strong { display: block; color: var(--blueprint-white); font-size: 0.9rem; }
+.df-page .success-text span { color: var(--muted); font-size: 0.78rem; }
+
+/* ── SECTIONS ── */
+.df-page .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+.df-page .section { padding: 88px 0; }
+
+.df-page .section-label {
+  font-size: 0.6rem; letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 18px;
+  display: flex; align-items: center; gap: 10px;
+}
+.df-page .section-label::before {
+  content: '▶'; font-size: 0.4rem;
+}
+.df-page .section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 0.95; letter-spacing: 0.04em;
+  margin-bottom: 20px; max-width: 700px;
+  color: var(--blueprint-white);
+}
+.df-page .section-body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.95rem; color: var(--muted); line-height: 1.8; max-width: 560px;
+}
+
+/* ── PROBLEM CARDS with blueprint corner marks ── */
+.df-page .problem-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px; margin-top: 56px;
+}
+.df-page .problem-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 32px; position: relative;
+  transition: border-color 0.2s;
+}
+.df-page .problem-card:hover { border-color: rgba(232,160,32,0.3); }
+
+/* Blueprint corner marks */
+.df-page .problem-card::before,
+.df-page .problem-card::after {
+  content: ''; position: absolute; width: 12px; height: 12px;
+}
+.df-page .problem-card::before {
+  top: -1px; left: -1px;
+  border-top: 2px solid var(--amber); border-left: 2px solid var(--amber);
+}
+.df-page .problem-card::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid var(--amber); border-right: 2px solid var(--amber);
+}
+
+.df-page .problem-card-num {
+  font-size: 0.6rem; color: var(--amber); letter-spacing: 0.2em;
+  margin-bottom: 16px; text-transform: uppercase;
+}
+.df-page .problem-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem; letter-spacing: 0.06em;
+  color: var(--blueprint-white); margin-bottom: 10px;
+}
+.df-page .problem-card p {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.88rem; color: var(--muted); line-height: 1.7;
+}
+
+.df-page .quote-block {
+  margin-top: 48px;
+  border-left: 3px solid var(--amber);
+  padding: 24px 28px; background: var(--amber-glow);
+}
+.df-page .quote-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 1rem; font-style: italic; line-height: 1.75;
+  color: var(--blueprint-white); margin-bottom: 12px;
+}
+.df-page .quote-attr { font-size: 0.72rem; color: var(--muted); }
+
+/* ── FEATURES ── */
+.df-page .features-layout {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px; background: var(--border); border: 1px solid var(--border);
+  margin-top: 56px;
+}
+.df-page .feature-card {
+  background: var(--card); padding: 28px 24px;
+  transition: background 0.2s;
+}
+.df-page .feature-card:hover { background: var(--surface); }
+.df-page .feature-tag {
+  font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--amber); margin-bottom: 18px; display: block;
+}
+.df-page .feature-icon {
+  font-size: 1.4rem; margin-bottom: 10px; display: block;
+  filter: grayscale(0.4);
+}
+.df-page .feature-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem; letter-spacing: 0.06em; margin-bottom: 8px;
+  color: var(--blueprint-white);
+}
+.df-page .feature-card p {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.84rem; color: var(--muted); line-height: 1.65;
+}
+
+/* ── STEPS ── */
+.df-page .steps { margin-top: 56px; display: flex; flex-direction: column; }
+.df-page .step {
+  display: grid; grid-template-columns: 72px 1fr;
+  gap: 28px; padding: 36px 0;
+  border-bottom: 1px solid var(--border); align-items: start;
+}
+.df-page .step:last-child { border-bottom: none; }
+.df-page .step-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem; letter-spacing: 0.06em;
+  color: var(--amber); opacity: 0.35; line-height: 1;
+}
+.df-page .step h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem; letter-spacing: 0.06em;
+  margin-bottom: 8px; color: var(--blueprint-white);
+}
+.df-page .step p {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.88rem; color: var(--muted); line-height: 1.7;
+}
+.df-page .step-detail {
+  font-size: 0.68rem; color: var(--amber); margin-top: 10px;
+  letter-spacing: 0.06em;
+}
+
+/* ── FAQ ── */
+.df-page .faq-list { margin-top: 48px; }
+.df-page .faq-item {
+  border-bottom: 1px solid var(--border); padding: 28px 0;
+}
+.df-page .faq-q {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.15rem; letter-spacing: 0.06em;
+  margin-bottom: 10px; display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 16px; color: var(--blueprint-white);
+}
+.df-page .faq-q::after {
+  content: '+'; color: var(--amber); font-size: 1.2rem;
+  font-family: 'IBM Plex Mono', monospace; flex-shrink: 0;
+}
+.df-page .faq-a {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.88rem; color: var(--muted); line-height: 1.8;
+}
+
+/* ── CTA ── */
+.df-page .cta-bottom {
+  border: 1px solid var(--border-amber);
+  padding: 64px; margin: 88px 0; text-align: center;
+  position: relative; background: var(--surface);
+}
+.df-page .cta-bottom::before,
+.df-page .cta-bottom::after {
+  content: '';
+  position: absolute; width: 20px; height: 20px;
+}
+.df-page .cta-bottom::before {
+  top: -1px; left: -1px;
+  border-top: 2px solid var(--amber); border-left: 2px solid var(--amber);
+}
+.df-page .cta-bottom::after {
+  bottom: -1px; right: -1px;
+  border-bottom: 2px solid var(--amber); border-right: 2px solid var(--amber);
+}
+.df-page .cta-bottom h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em;
+  margin-bottom: 14px; color: var(--blueprint-white);
+}
+.df-page .cta-bottom p {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-size: 0.95rem; color: var(--muted);
+  max-width: 460px; margin: 0 auto 36px; line-height: 1.75;
+}
+.df-page .cta-form-wrap { max-width: 480px; margin: 0 auto; }
+
+/* ── FOOTER ── */
+.df-page footer {
+  padding: 28px 0;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 12px;
+}
+.df-page .footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem; letter-spacing: 0.14em; color: var(--amber);
+}
+.df-page .footer-copy { font-size: 0.65rem; color: var(--muted); letter-spacing: 0.08em; }
+
+/* ── ANIMATIONS ── */
+@keyframes df-scan {
+  0%   { top: 0; opacity: 0.8; }
+  100% { top: 100%; opacity: 0; }
+}
+@keyframes df-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .df-page .problem-grid, .df-page .features-layout { grid-template-columns: 1fr; }
+  .df-page .step { grid-template-columns: 48px 1fr; }
+  .df-page .cta-bottom { padding: 48px 24px; }
+  .df-page .form-row { flex-direction: column; }
+  .df-page .email-input { border-right: 1px solid var(--border-amber); }
+  .df-page .hero-stats { flex-direction: column; max-width: 300px; }
+  .df-page .stat-item { border-right: none; border-bottom: 1px solid var(--border-amber); }
+  .df-page footer { flex-direction: column; }
+}
