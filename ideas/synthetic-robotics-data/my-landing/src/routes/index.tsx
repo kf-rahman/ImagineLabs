@@ -6,6 +6,16 @@ export const Route = createFileRoute('/')({
 
 const ideas = [
   {
+    path: '/imaginelabs' as const,
+    name: 'Imagine Labs',
+    score: '8',
+    tag: 'World Model Data',
+    tagline: 'Upload demos. Get 10,000 training scenarios overnight.',
+    accent: '#28A85E',
+    desc: "Two demo videos in, thousands of trajectories out. Our world model learns from your footage — no simulator setup, no URDF files, VLA-ready overnight.",
+    bullets: ['3DGS reconstruction from raw footage', 'World model generates novel scenarios', 'LeRobot v3 format, drop-in compatible'],
+  },
+  {
     path: '/dexforge' as const,
     name: 'DexForge',
     score: '7–8',
@@ -50,7 +60,7 @@ function Hub() {
       <main style={s.main}>
         <div style={s.intro}>
           <div style={s.introScore}>Original idea: 5/10 · Generic platform → pass</div>
-          <h1 style={s.introTitle}>3 pivot ideas worth building.</h1>
+          <h1 style={s.introTitle}>4 pivot ideas worth building.</h1>
           <p style={s.introBody}>
             A generic synthetic robotics data platform has no moat — NVIDIA gives Isaac Sim away for free, and Datagen raised $70M and still shut down. These three niches are where incumbents are weakest and customers are desperate.
           </p>

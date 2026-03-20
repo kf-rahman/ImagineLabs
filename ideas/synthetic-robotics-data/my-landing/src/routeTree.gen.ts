@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransfercheckRouteImport } from './routes/transfercheck'
 import { Route as SurgisimRouteImport } from './routes/surgisim'
+import { Route as ImaginelabsRouteImport } from './routes/imaginelabs'
 import { Route as DexforgeRouteImport } from './routes/dexforge'
+import { Route as CabledataRouteImport } from './routes/cabledata'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -25,9 +27,19 @@ const SurgisimRoute = SurgisimRouteImport.update({
   path: '/surgisim',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ImaginelabsRoute = ImaginelabsRouteImport.update({
+  id: '/imaginelabs',
+  path: '/imaginelabs',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DexforgeRoute = DexforgeRouteImport.update({
   id: '/dexforge',
   path: '/dexforge',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CabledataRoute = CabledataRouteImport.update({
+  id: '/cabledata',
+  path: '/cabledata',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -44,14 +56,18 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/cabledata': typeof CabledataRoute
   '/dexforge': typeof DexforgeRoute
+  '/imaginelabs': typeof ImaginelabsRoute
   '/surgisim': typeof SurgisimRoute
   '/transfercheck': typeof TransfercheckRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/cabledata': typeof CabledataRoute
   '/dexforge': typeof DexforgeRoute
+  '/imaginelabs': typeof ImaginelabsRoute
   '/surgisim': typeof SurgisimRoute
   '/transfercheck': typeof TransfercheckRoute
 }
@@ -59,22 +75,48 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/cabledata': typeof CabledataRoute
   '/dexforge': typeof DexforgeRoute
+  '/imaginelabs': typeof ImaginelabsRoute
   '/surgisim': typeof SurgisimRoute
   '/transfercheck': typeof TransfercheckRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/dexforge' | '/surgisim' | '/transfercheck'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/cabledata'
+    | '/dexforge'
+    | '/imaginelabs'
+    | '/surgisim'
+    | '/transfercheck'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/dexforge' | '/surgisim' | '/transfercheck'
-  id: '__root__' | '/' | '/about' | '/dexforge' | '/surgisim' | '/transfercheck'
+  to:
+    | '/'
+    | '/about'
+    | '/cabledata'
+    | '/dexforge'
+    | '/imaginelabs'
+    | '/surgisim'
+    | '/transfercheck'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/cabledata'
+    | '/dexforge'
+    | '/imaginelabs'
+    | '/surgisim'
+    | '/transfercheck'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  CabledataRoute: typeof CabledataRoute
   DexforgeRoute: typeof DexforgeRoute
+  ImaginelabsRoute: typeof ImaginelabsRoute
   SurgisimRoute: typeof SurgisimRoute
   TransfercheckRoute: typeof TransfercheckRoute
 }
@@ -95,11 +137,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SurgisimRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/imaginelabs': {
+      id: '/imaginelabs'
+      path: '/imaginelabs'
+      fullPath: '/imaginelabs'
+      preLoaderRoute: typeof ImaginelabsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/dexforge': {
       id: '/dexforge'
       path: '/dexforge'
       fullPath: '/dexforge'
       preLoaderRoute: typeof DexforgeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cabledata': {
+      id: '/cabledata'
+      path: '/cabledata'
+      fullPath: '/cabledata'
+      preLoaderRoute: typeof CabledataRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -122,7 +178,9 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  CabledataRoute: CabledataRoute,
   DexforgeRoute: DexforgeRoute,
+  ImaginelabsRoute: ImaginelabsRoute,
   SurgisimRoute: SurgisimRoute,
   TransfercheckRoute: TransfercheckRoute,
 }
