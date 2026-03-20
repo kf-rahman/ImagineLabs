@@ -35,6 +35,16 @@ const ideas = [
     desc: 'Surgical training data is structurally impossible to collect at scale. SurgiSim generates biomechanically accurate synthetic data — tissue, anatomy, instruments.',
     bullets: ['Viscoelastic tissue + organ deformation models', '100K+ procedurally generated patient anatomies', 'Inherently HIPAA-compliant pipeline'],
   },
+  {
+    path: '/clusterops' as const,
+    name: 'ClusterOps',
+    score: '8',
+    tag: 'AI Infrastructure',
+    tagline: 'Autonomous physical recovery for AI GPU clusters.',
+    accent: '#00ff87',
+    desc: 'Every hour of GPU cluster downtime costs $30K+. ClusterOps detects hardware failures, dispatches a robot to the rack, and restores your training run — without a human in the loop.',
+    bullets: ['Sub-4-minute recovery from cluster scheduler event', 'Native SLURM / Kubernetes / IPMI integration', 'Cable-aware autonomous navigation + hardware swap'],
+  },
 ]
 
 function Hub() {
@@ -50,7 +60,7 @@ function Hub() {
       <main style={s.main}>
         <div style={s.intro}>
           <div style={s.introScore}>Original idea: 5/10 · Generic platform → pass</div>
-          <h1 style={s.introTitle}>3 pivot ideas worth building.</h1>
+          <h1 style={s.introTitle}>4 ideas worth building.</h1>
           <p style={s.introBody}>
             A generic synthetic robotics data platform has no moat — NVIDIA gives Isaac Sim away for free, and Datagen raised $70M and still shut down. These three niches are where incumbents are weakest and customers are desperate.
           </p>

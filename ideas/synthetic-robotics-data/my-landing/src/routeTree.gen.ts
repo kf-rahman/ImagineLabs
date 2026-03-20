@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TransfercheckRouteImport } from './routes/transfercheck'
 import { Route as SurgisimRouteImport } from './routes/surgisim'
 import { Route as DexforgeRouteImport } from './routes/dexforge'
+import { Route as ClusteropsRouteImport } from './routes/clusterops'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const DexforgeRoute = DexforgeRouteImport.update({
   path: '/dexforge',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ClusteropsRoute = ClusteropsRouteImport.update({
+  id: '/clusterops',
+  path: '/clusterops',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/clusterops': typeof ClusteropsRoute
   '/dexforge': typeof DexforgeRoute
   '/surgisim': typeof SurgisimRoute
   '/transfercheck': typeof TransfercheckRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/clusterops': typeof ClusteropsRoute
   '/dexforge': typeof DexforgeRoute
   '/surgisim': typeof SurgisimRoute
   '/transfercheck': typeof TransfercheckRoute
@@ -59,21 +67,42 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/clusterops': typeof ClusteropsRoute
   '/dexforge': typeof DexforgeRoute
   '/surgisim': typeof SurgisimRoute
   '/transfercheck': typeof TransfercheckRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/dexforge' | '/surgisim' | '/transfercheck'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/clusterops'
+    | '/dexforge'
+    | '/surgisim'
+    | '/transfercheck'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/dexforge' | '/surgisim' | '/transfercheck'
-  id: '__root__' | '/' | '/about' | '/dexforge' | '/surgisim' | '/transfercheck'
+  to:
+    | '/'
+    | '/about'
+    | '/clusterops'
+    | '/dexforge'
+    | '/surgisim'
+    | '/transfercheck'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/clusterops'
+    | '/dexforge'
+    | '/surgisim'
+    | '/transfercheck'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ClusteropsRoute: typeof ClusteropsRoute
   DexforgeRoute: typeof DexforgeRoute
   SurgisimRoute: typeof SurgisimRoute
   TransfercheckRoute: typeof TransfercheckRoute
@@ -102,6 +131,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DexforgeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/clusterops': {
+      id: '/clusterops'
+      path: '/clusterops'
+      fullPath: '/clusterops'
+      preLoaderRoute: typeof ClusteropsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -122,6 +158,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ClusteropsRoute: ClusteropsRoute,
   DexforgeRoute: DexforgeRoute,
   SurgisimRoute: SurgisimRoute,
   TransfercheckRoute: TransfercheckRoute,
