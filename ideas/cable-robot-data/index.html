@@ -119,6 +119,7 @@
   <footer>© 2025 CableData</footer>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 
   <script>
   if (typeof THREE === 'undefined') {
@@ -157,7 +158,7 @@
   cam.position.set(-4.0, 4.0, 28.0);
   cam.lookAt(0, 0, 0);
 
-  // ── LIGHTS — warm, soft, studio-like for the cream background ────────────
+  // ── LIGHTS ────────────────────────────────────────────────────────────────
   scene.add(new THREE.AmbientLight(0xffffff, 1.8));
 
   const key = new THREE.DirectionalLight(0xFFF8F0, 6);
@@ -172,32 +173,29 @@
   rim.position.set(-3, 6, -8);
   scene.add(rim);
 
-  // Accent light on cable
-  const cableGlowLight = new THREE.PointLight(0x2244CC, 3, 8);
+  const cableGlowLight = new THREE.PointLight(0xFF3300, 2, 10);
   scene.add(cableGlowLight);
 
-  // ── MATERIALS — dark gripper on light background ──────────────────────────
+  // ── MATERIALS ─────────────────────────────────────────────────────────────
   const MAT = {
-    frame: new THREE.MeshStandardMaterial({
-      color: 0x1C1C24, metalness: 0.90, roughness: 0.10,
-    }),
-    body: new THREE.MeshStandardMaterial({
-      color: 0x28282F, metalness: 0.82, roughness: 0.18,
-    }),
+    frame: new THREE.MeshStandardMaterial({ color: 0x1C1C24, metalness: 0.90, roughness: 0.10 }),
+    body:  new THREE.MeshStandardMaterial({ color: 0x28282F, metalness: 0.82, roughness: 0.18 }),
     gripFace: new THREE.MeshStandardMaterial({
       color: 0xDDDDE8, metalness: 0.10, roughness: 0.65,
       polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -8,
     }),
-    bolt: new THREE.MeshStandardMaterial({
-      color: 0x111118, metalness: 0.95, roughness: 0.05,
-    }),
+    bolt: new THREE.MeshStandardMaterial({ color: 0x111118, metalness: 0.95, roughness: 0.05 }),
     cable: new THREE.MeshStandardMaterial({
-      color: 0xCC2222, metalness: 0.0, roughness: 0.50,
-      emissive: new THREE.Color(0x661111), emissiveIntensity: 0.3,
+      color: 0xCC0000, metalness: 0.0, roughness: 0.40,
+      emissive: new THREE.Color(0xCC0000), emissiveIntensity: 0.8,
+    }),
+    cableGlow: new THREE.MeshBasicMaterial({
+      color: 0xFF0000, transparent: true, opacity: 0.18,
+      side: THREE.BackSide, depthWrite: false,
+      blending: THREE.AdditiveBlending,
     }),
     cableEnd: new THREE.MeshStandardMaterial({
-      color: 0xDD3333,
-      emissive: new THREE.Color(0xAA2222), emissiveIntensity: 0.5,
+      color: 0xFF1100, emissive: new THREE.Color(0xFF1100), emissiveIntensity: 1.2,
     }),
   };
 
@@ -212,19 +210,13 @@
     const m = new THREE.Mesh(new THREE.CylinderGeometry(rt, rb, h, seg), mat);
     m.position.set(x, y, z); m.rotation.set(rx, ry, rz); return m;
   }
-  // Triangular/wedge prism: ExtrudeGeometry for the finger shape
   function mkWedge(length, height, depth, mat) {
     const shape = new THREE.Shape();
-    // Triangle in XY plane: flat base on top, point at bottom
     shape.moveTo(-length/2, 0);
     shape.lineTo( length/2, 0);
     shape.lineTo( 0, -height);
     shape.closePath();
-    const geo = new THREE.ExtrudeGeometry(shape, {
-      depth: depth,
-      bevelEnabled: false,
-    });
-    // Center the extrusion in Z
+    const geo = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: false });
     geo.translate(0, 0, -depth/2);
     return new THREE.Mesh(geo, mat);
   }
@@ -234,85 +226,59 @@
   grip.scale.set(1.6, 1.6, 1.6);
   scene.add(grip);
 
-  // ─── FRAME / ARM (extends RIGHT, off-screen) ─────────────────────────
   grip.add(mkBox(5.5, 0.18, 0.22, MAT.frame,  2.8,  0.55, -0.32));
   grip.add(mkBox(5.5, 0.18, 0.22, MAT.frame,  2.8, -0.55, -0.32));
   grip.add(mkBox(5.5, 0.18, 0.22, MAT.frame,  2.8,  0.55,  0.32));
   grip.add(mkBox(5.5, 0.18, 0.22, MAT.frame,  2.8, -0.55,  0.32));
-
-  // Cross braces
   grip.add(mkBox(0.16, 1.26, 0.74, MAT.frame,  1.5,  0, 0));
   grip.add(mkBox(0.16, 1.26, 0.74, MAT.frame,  2.8,  0, 0));
   grip.add(mkBox(0.16, 1.26, 0.74, MAT.frame,  4.1,  0, 0));
-
-  // Actuator housing
-  grip.add(mkBox(1.30, 1.40, 0.95, MAT.body,  0.50, 0, 0));
-  // Bolts
+  grip.add(mkBox(1.30, 1.40, 0.95, MAT.body,   0.50, 0, 0));
   grip.add(mkCyl(0.05, 0.05, 0.14, 8, MAT.bolt,  0.05,  0.50, 0.52));
   grip.add(mkCyl(0.05, 0.05, 0.14, 8, MAT.bolt,  0.95,  0.50, 0.52));
   grip.add(mkCyl(0.05, 0.05, 0.14, 8, MAT.bolt,  0.05, -0.50, 0.52));
   grip.add(mkCyl(0.05, 0.05, 0.14, 8, MAT.bolt,  0.95, -0.50, 0.52));
 
-  // ─── TRIANGULAR FINGER PADS ──────────────────────────────────────────
-  // Each finger is a wedge/triangle: wide at the mounting end, tapering
-  // to a point at the gripping tip. This makes the shape immediately
-  // readable as "clipper jaws."
-  //
-  //  Upper finger (wedge points DOWN toward cable):
-  //
-  //    ┌──────────────────┐  ← flat mounting edge (top)
-  //    \                  /
-  //      \              /
-  //        \          /
-  //          \  tip  /       ← pointed gripping edge
-  //            ────
-  //         [cable here]
-  //            ────
-  //          /  tip  \       ← pointed gripping edge
-  //        /          \
-  //      /              \
-  //    /                  \
-  //    └──────────────────┘  ← flat mounting edge (bottom)
-  //
-  //  Lower finger (wedge points UP toward cable):
+  // ─── WRIST MOUNT — caps the arm's right end so it reads as attached ────
+  // Thick flange ring
+  grip.add(mkCyl(0.72, 0.72, 0.30, 24, MAT.body,   5.50, 0, 0,  0, 0, Math.PI/2));
+  // Inner collar
+  grip.add(mkCyl(0.46, 0.46, 0.44, 20, MAT.frame,  5.62, 0, 0,  0, 0, Math.PI/2));
+  // Bolt ring (4 bolts around the flange)
+  for (let i = 0; i < 4; i++) {
+    const a = (i / 4) * Math.PI * 2 + Math.PI / 4;
+    grip.add(mkCyl(0.045, 0.045, 0.32, 8, MAT.bolt,
+      5.50, Math.cos(a) * 0.56, Math.sin(a) * 0.56,  0, 0, Math.PI/2));
+  }
 
-  const fingerLen  = 1.80;  // width of the flat base
-  const fingerH    = 0.70;  // height from base to tip
-  const fingerD    = 1.10;  // depth (Z, front to back)
-  const gapClosed  = 0.12;  // half-gap when fully closed (tips nearly touching)
-  const gapOpen    = 0.55;  // half-gap when fully open
+  const fingerLen = 1.80, fingerH = 0.70, fingerD = 1.10;
+  const gapClosed = 0.12, gapOpen = 0.55;
 
-  // Upper finger — base at top, point faces DOWN toward cable
-  // When closed, tip is at y = gapClosed. Base is at y = gapClosed + fingerH.
-  const upperFinger = mkWedge(fingerLen, fingerH, fingerD, MAT.body);
-  upperFinger.position.set(-0.30, gapClosed + fingerH, 0);  // base at top, tip at y=gapClosed
+  const upperFinger   = mkWedge(fingerLen, fingerH, fingerD, MAT.body);
+  upperFinger.position.set(-0.30, gapClosed + fingerH, 0);
   grip.add(upperFinger);
 
-  // Grip face strip on the upper finger tip
   const upperGripFace = mkBox(fingerLen * 0.45, 0.07, fingerD + 0.02, MAT.gripFace);
   upperGripFace.position.set(-0.30, gapClosed + 0.035, 0);
   grip.add(upperGripFace);
 
-  // Lower finger — rotated 180° so base is at bottom, point faces UP toward cable
-  // When closed, tip is at y = -gapClosed. Base is at y = -(gapClosed + fingerH).
-  const lowerFinger = mkWedge(fingerLen, fingerH, fingerD, MAT.body);
+  const lowerFinger   = mkWedge(fingerLen, fingerH, fingerD, MAT.body);
   lowerFinger.rotation.z = Math.PI;
-  lowerFinger.position.set(-0.30, -(gapClosed + fingerH), 0);  // base at bottom, tip at y=-gapClosed
+  lowerFinger.position.set(-0.30, -(gapClosed + fingerH), 0);
   grip.add(lowerFinger);
 
-  // Grip face strip on the lower finger tip
   const lowerGripFace = mkBox(fingerLen * 0.45, 0.07, fingerD + 0.02, MAT.gripFace);
   lowerGripFace.position.set(-0.30, -(gapClosed + 0.035), 0);
   grip.add(lowerGripFace);
 
-  // Mounting brackets (connect each finger to the actuator housing)
   const upperBracket = mkBox(0.30, 0.35, fingerD + 0.16, MAT.frame,  0.40, gapClosed + fingerH * 0.55, 0);
   const lowerBracket = mkBox(0.30, 0.35, fingerD + 0.16, MAT.frame,  0.40, -(gapClosed + fingerH * 0.55), 0);
-  grip.add(upperBracket);
-  grip.add(lowerBracket);
+  grip.add(upperBracket, lowerBracket);
 
-  // ─── CABLE ────────────────────────────────────────────────────────────
-  // Red cable (matches reference) enters from left, through the grip, droops down.
+  // ── CABLE — lives inside grip group (matches original) ───────────────────
+  // Entering from the left, contacting the jaw, then immediately pulling
+  // hard LEFT so it clears the finger geometry before drooping down.
+  // Extended further down so it visually reaches the bottom form area.
   function buildCable(t) {
     const sway1 = Math.sin(t * 0.40) * 0.15;
     const sway2 = Math.sin(t * 0.62 + 1.2) * 0.12;
@@ -321,28 +287,41 @@
     const pts = [
       new THREE.Vector3(-3.5,   0.35 + sway1 * 0.3,   0),
       new THREE.Vector3(-2.2,   0.12 + sway2 * 0.2,   sway1 * 0.15),
-      new THREE.Vector3(-0.30,  0.00,                  0),         // grip point (between jaws)
-      new THREE.Vector3(-0.90, -0.15,                  0),         // pull hard left immediately
-      new THREE.Vector3(-1.30, -0.70 + sway3 * 0.15,  sway2 * 0.08), // well clear of housing
+      new THREE.Vector3(-0.30,  0.00,                  0),                        // jaw contact
+      new THREE.Vector3(-0.90, -0.15,                  0),                        // pull hard left — clears fingers
+      new THREE.Vector3(-1.30, -0.70 + sway3 * 0.15,  sway2 * 0.08),
       new THREE.Vector3(-1.20 + sway1 * 0.10, -1.60,  sway3 * 0.12),
       new THREE.Vector3(-1.00 + sway2 * 0.08, -2.50,  sway1 * 0.08),
-      new THREE.Vector3(-0.80,                 -3.50,  0),
+      new THREE.Vector3(-0.60 + sway3 * 0.06, -3.80,  sway2 * 0.06),
+      new THREE.Vector3(-0.20,                -5.20,   0),                        // enters form area
     ];
     return {
-      geom: new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 64, 0.055, 10, false),
+      geom:     new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 80, 0.072, 12, false),
+      glowGeom: new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 60, 0.18,   8, false),
       tip: pts[pts.length - 1],
     };
   }
 
-  const endSphere   = new THREE.Mesh(new THREE.SphereGeometry(0.08, 12, 12), MAT.bolt);
-  const innerSphere = new THREE.Mesh(new THREE.SphereGeometry(0.05, 10, 10), MAT.cableEnd);
-  const initC = buildCable(0);
-  endSphere.position.copy(initC.tip);
-  innerSphere.position.copy(initC.tip);
-  const cableMesh = new THREE.Mesh(initC.geom, MAT.cable);
-  grip.add(cableMesh, endSphere, innerSphere);
+  // Warm red point light at jaw contact
+  const jawLight = new THREE.PointLight(0xFF3300, 5, 6);
+  grip.add(jawLight);
+  jawLight.position.set(-0.30, 0, 0);
 
-  // ── PARTICLES (subtle, warm-toned for light bg) ───────────────────────────
+  const initC     = buildCable(0);
+  const cableMesh = new THREE.Mesh(initC.geom,     MAT.cable);
+  const cableGlow = new THREE.Mesh(initC.glowGeom, MAT.cableGlow);
+  grip.add(cableGlow, cableMesh);
+
+  // Connector cap at the bottom
+  const endSphere  = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 16), MAT.cableEnd);
+  const endGlowMat = new THREE.MeshBasicMaterial({
+    color: 0xFF0000, transparent: true, opacity: 0.28,
+    blending: THREE.AdditiveBlending, depthWrite: false,
+  });
+  const endGlow = new THREE.Mesh(new THREE.SphereGeometry(0.36, 12, 12), endGlowMat);
+  grip.add(endSphere, endGlow);
+
+  // ── PARTICLES ─────────────────────────────────────────────────────────────
   const N = 100;
   const pPos = new Float32Array(N * 3);
   const pVel = new Float32Array(N * 3);
@@ -365,71 +344,130 @@
     mx = (e.clientX / innerWidth  - 0.5) * 2;
     my = (e.clientY / innerHeight - 0.5) * 2;
   });
-
   window.addEventListener('resize', () => {
     renderer.setSize(innerWidth, innerHeight);
     cam.aspect = innerWidth / innerHeight;
     cam.updateProjectionMatrix();
   });
 
-  // ── RENDER LOOP ───────────────────────────────────────────────────────────
+  // ── ANIME.JS DRIVEN STATE ─────────────────────────────────────────────────
   const GRIP_BASE_Y = 1.2;
-  let tick = 0;
 
-  const CAM_FINAL = { x: -3.0, y: 2.5, z: 16.0 };
-  const CAM_LOOK  = new THREE.Vector3(0.3, -0.8, 0);
+  // 1. Camera entrance — swoops from far to final in one smooth arc
+  const camState = { x: -4.0, y: 4.0, z: 28.0 };
+  anime({
+    targets: camState,
+    x: -3.0, y: 2.5, z: 16.0,
+    duration: 2200,
+    easing: 'cubicBezier(0.16, 1, 0.3, 1)',
+  });
+
+  // 2. Jaw clamp — snappy open / close loop with elastic easing on close
+  const jawState = { openAmt: 0 };
+  const maxOpen = gapOpen - gapClosed;
+
+  function scheduleJaw() {
+    // Snap open fast, hold, clamp shut with overshoot, hold, repeat
+    anime.timeline({ complete: scheduleJaw })
+      .add({ targets: jawState, openAmt: maxOpen, duration: 420, easing: 'easeOutBack' })
+      .add({ targets: jawState, openAmt: maxOpen, duration: 600, easing: 'linear' }) // hold open
+      .add({ targets: jawState, openAmt: 0,       duration: 380, easing: 'easeInBack' })
+      .add({ targets: jawState, openAmt: 0,       duration: 900, easing: 'linear' }); // hold closed
+  }
+  scheduleJaw();
+
+  // 3. Float — continuous vertical bob via anime (infinite loop)
+  const floatState = { y: GRIP_BASE_Y };
+  anime({
+    targets: floatState,
+    y: [GRIP_BASE_Y - 0.18, GRIP_BASE_Y + 0.18],
+    duration: 2800,
+    direction: 'alternate',
+    loop: true,
+    easing: 'easeInOutSine',
+  });
+
+  // 4. Slow idle Y-rotation drift (on top of mouse)
+  const driftState = { ry: -0.18 };
+  anime({
+    targets: driftState,
+    ry: 0.18,
+    duration: 5000,
+    direction: 'alternate',
+    loop: true,
+    easing: 'easeInOutQuad',
+  });
+
+  // 5. Cable emissive pulse — makes it feel live / energized
+  const pulseState = { intensity: 0.6 };
+  anime({
+    targets: pulseState,
+    intensity: [0.7, 1.4],
+    duration: 1100,
+    direction: 'alternate',
+    loop: true,
+    easing: 'easeInOutSine',
+  });
+
+  // 6. End-glow opacity breathe
+  const glowState = { opacity: 0.18 };
+  anime({
+    targets: glowState,
+    opacity: [0.08, 0.30],
+    duration: 1400,
+    direction: 'alternate',
+    loop: true,
+    easing: 'easeInOutSine',
+  });
+
+  // ── RENDER LOOP ───────────────────────────────────────────────────────────
+  let tick = 0;
+  const CAM_LOOK = new THREE.Vector3(0.3, -0.8, 0);
 
   (function loop() {
     requestAnimationFrame(loop);
     tick += 0.016;
 
-    // Camera entrance
-    cam.position.x += (CAM_FINAL.x - cam.position.x) * 0.014;
-    cam.position.y += (CAM_FINAL.y - cam.position.y) * 0.014;
-    cam.position.z += (CAM_FINAL.z - cam.position.z) * 0.014;
+    // Camera — driven by anime
+    cam.position.set(camState.x, camState.y, camState.z);
     cam.lookAt(CAM_LOOK);
 
-    // ── CLIPPING ANIMATION ──────────────────────────────────────────────
-    // The jaws open and close in a slow, smooth cycle.
-    // jawExtra: 0 = closed position, (gapOpen - gapClosed) = fully open
-    const clipCycle = tick * 0.45;
-    const openAmt   = (Math.sin(clipCycle) * 0.5 + 0.5)   // 0→1 smooth
-                      * (gapOpen - gapClosed);             // max extra opening
+    // Jaws — driven by anime jawState
+    const openAmt = jawState.openAmt;
+    const upperY  = gapClosed + openAmt;
+    const lowerY  = -(gapClosed + openAmt);
 
-    const upperY = gapClosed + openAmt;
-    const lowerY = -(gapClosed + openAmt);
-
-    // Move upper finger + grip face + bracket
     upperFinger.position.y   = upperY + fingerH;
     upperGripFace.position.y = upperY + 0.035;
     upperBracket.position.y  = upperY + fingerH * 0.55;
 
-    // Move lower finger + grip face + bracket
     lowerFinger.position.y   = lowerY - fingerH;
     lowerGripFace.position.y = lowerY - 0.035;
     lowerBracket.position.y  = lowerY - fingerH * 0.55;
 
-    // Cable animation
+    // Cable — local to grip group, same as original
     const cable = buildCable(tick);
     cableMesh.geometry.dispose();
+    cableGlow.geometry.dispose();
     cableMesh.geometry = cable.geom;
+    cableGlow.geometry = cable.glowGeom;
+
+    MAT.cable.emissiveIntensity = pulseState.intensity;
+
     endSphere.position.copy(cable.tip);
-    innerSphere.position.copy(cable.tip);
+    endGlow.position.copy(cable.tip);
+    endGlowMat.opacity = glowState.opacity;
 
-    cableGlowLight.position.set(
-      cable.tip.x * 1.6,
-      cable.tip.y * 1.6 + GRIP_BASE_Y + 0.3,
-      cable.tip.z * 1.6 + 0.6
-    );
+    cableGlowLight.position.set(cable.tip.x, cable.tip.y + 0.3, cable.tip.z + 0.5);
 
-    // Mouse rotation
-    curRY += (mx * 0.20 - curRY) * 0.022;
-    curRX += (-my * 0.08 - curRX) * 0.022;
+    // Mouse look — smooth lag
+    curRY += (mx * 0.20 + driftState.ry - curRY) * 0.028;
+    curRX += (-my * 0.08 - curRX) * 0.028;
     grip.rotation.y = curRY;
     grip.rotation.x = curRX;
 
-    // Float
-    grip.position.y = Math.sin(tick * 0.32) * 0.04 + GRIP_BASE_Y;
+    // Float — driven by anime
+    grip.position.y = floatState.y;
 
     // Particles
     const attr = pGeom.attributes.position;
