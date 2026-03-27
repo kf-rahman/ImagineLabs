@@ -54,7 +54,35 @@
       font-family: 'DM Mono', monospace; font-size: clamp(22px, 3vw, 42px);
       font-weight: 400; color: #1A1A1A; letter-spacing: -0.025em; line-height: 1.2;
     }
-    p.sub { font-size: 14px; color: rgba(0,0,0,0.40); letter-spacing: 0.01em; }
+    p.sub {
+      font-size: 15px; font-weight: 500; color: rgba(0,0,0,0.70);
+      letter-spacing: 0.01em;
+    }
+
+    /* ── Launchlist widget overrides ─────────────────────────── */
+    .launchlist-widget input[type="email"] {
+      font-family: 'DM Sans', sans-serif !important;
+      background: rgba(0,0,0,0.04) !important;
+      border: 1px solid rgba(0,0,0,0.12) !important;
+      border-radius: 6px !important;
+      color: #1A1A1A !important;
+      font-size: 14px !important;
+    }
+    .launchlist-widget button,
+    .launchlist-widget input[type="submit"] {
+      font-family: 'DM Sans', sans-serif !important;
+      background: #1A1A1A !important;
+      color: #F2EDE8 !important;
+      border: none !important;
+      border-radius: 6px !important;
+      font-size: 14px !important;
+      font-weight: 500 !important;
+      transition: background .15s !important;
+    }
+    .launchlist-widget button:hover,
+    .launchlist-widget input[type="submit"]:hover {
+      background: #333 !important;
+    }
     form { display: flex; gap: 8px; margin-top: 6px; }
     input[type="email"] {
       width: 230px; height: 44px; padding: 0 16px;
