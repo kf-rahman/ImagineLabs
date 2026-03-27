@@ -22,7 +22,7 @@
     canvas { position: fixed; inset: 0; width: 100% !important; height: 100% !important; }
 
     .logo {
-      position: fixed; top: 20px; left: 28px; z-index: 100;
+      position: fixed; top: 20px; left: 28px; z-index: 9999;
       text-decoration: none;
     }
     .logo img { height: 36px; width: auto; display: block; }
@@ -123,9 +123,6 @@
 </head>
 <body>
 
-  <a class="logo" href="#">
-    <img src="assets/seam-logo.png" alt="Seam" />
-  </a>
   <canvas id="c"></canvas>
 
   <div class="headline-top">
@@ -136,6 +133,10 @@
     <p class="sub">We're building it. Join us early.</p>
     <div class="launchlist-widget" data-key-id="hLyge5" data-height="180px"></div>
   </div>
+
+  <a class="logo" href="#">
+    <img src="assets/seam-logo.png" alt="Seam" />
+  </a>
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
