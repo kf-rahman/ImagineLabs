@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <script src="https://getlaunchlist.com/js/widget.js" defer></script>
 
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -101,19 +102,7 @@
 
   <div class="overlay">
     <p class="sub">We're building it. Join us early.</p>
-    <form id="wl" novalidate>
-      <input type="email" id="em" placeholder="you@company.com" autocomplete="email" />
-      <button type="submit">Join us</button>
-    </form>
-    <div class="success" id="ok">
-      <div class="ring">
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="2,7 5.5,10.5 12,3.5"/>
-        </svg>
-      </div>
-      <p>You're on the list. We'll be in touch.</p>
-    </div>
+    <div class="launchlist-widget" data-key-id="hLyge5" data-height="180px"></div>
   </div>
 
   <footer>© 2025 CableData</footer>
@@ -127,16 +116,6 @@
     console.error('Three.js failed to load');
   }
 
-  document.getElementById('wl').addEventListener('submit', async e => {
-    e.preventDefault();
-    const v = document.getElementById('em').value.trim();
-    if (!v || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return;
-    const btn = e.target.querySelector('button');
-    btn.textContent = '...'; btn.disabled = true;
-    await new Promise(r => setTimeout(r, 600));
-    e.target.style.display = 'none';
-    document.getElementById('ok').classList.add('show');
-  });
 
   if (typeof THREE !== 'undefined') {
 
